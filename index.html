@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="stylesheet" href="stylesheet.css">
+  <!-- <link rel="script" href="script.js"> -->
+  <link rel="fonts" href="https://fonts.google.com/specimen/Space+Mono">
+  <title>Tip calculator app</title>
+</head>
+
+<body>
+  <div class="mainconainer">
+    <!-- <h1>Spli<br>tter</h1> -->
+    <img src="logo.svg" alt="">
+    <div class="container">
+      <section class="calculater">
+        <span>
+          <label for="input"><img src="icon-dollar.svg" alt=""></label>
+          <p>Bill</p>
+          <input type="text" id="bill" placeholder="0">
+        </span>
+        <span class="btn">
+          <p>Select tip %</p>
+          <button class="btn1 " value="5">5%</button>
+          <button class="btn1 " value="10">10%</button>
+          <button class="btn1 " value="15">15%</button><br>
+          <button class="btn1 " value="25">25%</button>
+          <button class="btn1 " value="50">50%</button>
+          <input class="btn1" id="custom" placeholder="Custom">
+        </span>
+        <span>
+          <label for="input"><img src="icon-person.svg" alt=""></label>
+          <p>Number of people</p>
+          <input  class="" type="text" id="person" placeholder="0">
+
+        </span>
+      </section>
+      <section class="preview">
+        <div class="amount">
+          <p>Tip Amount</p>
+          <span>/ person</span>
+          <label for="p" id="tip">$0.00</label>
+          <p>Total Amount</p>
+          <span>/ person</span>
+          <label for="p" id="total">$0.00</label>
+        </div>
+        <div class="btne">
+          <button class="btn2" onclick="myfun2()" >Reset</button>
+        </div>
+      </section>
+    </div>
+  </div>
+  <script>
+    let totalBillInput = document.getElementById("bill")
+    let person = document.getElementById("person")
+    let tip = document.getElementById("tip")
+    let total = document.getElementById("total")
+    let btn1 = document.getElementsByClassName("btn1")
+    setInterval(() => {
+      
+      let personv = person.value
+      let billv = bill.value
+      let pretotal = (billv / personv).toFixed(2)
+      console.log(personv)
+      console.log(billv)
+    }, 100);
+    // button color change
+    const tipPercentButtonsArray = Array.from(btn1)
+    console.log(tipPercentButtonsArray)
+    tipPercentButtonsArray.forEach(button => {
+      button.addEventListener('click', handleTipButtonClick)
+    })
+    function handleTipButtonClick(e) {
+      tipPercentButtonsArray.forEach((t) => t.classList.remove("selected"));
+      e.target.classList.add("selected")
+        
+        if( personv > 0){
+          tip.innerText = "$" +Math.round((billv / personv)*(e.target.value))/100
+          let mytotal =(billv / personv) + Math.round((billv / personv)*(e.target.value))/100
+     console.log(mytotal)
+     total.innerText = "$" + mytotal
+
+    }
+    else{
+      
+      person.classList.add("person")
+      totalBillInput.classList.add("person")
+      tip.innerText = "$0.00"
+      total.innerText = "$0.00"
+    }
+  
+    }
+    
+
+
+    let tipCalculatorState = {
+      totalBill: 0,
+      percentSelected: false,
+      tipPercent: 0,
+      people: 0,
+      totalTip: 0,
+      tipForEach: 0,
+      totalForEach: 0
+    }
+
+    const handleTotalBillChange = (e) => {
+      tipCalculatorState.totalBill = Number(e.target.value)
+    }
+    totalBillInput.addEventListener('keyup', handleTotalBillChange)
+    person.addEventListener('keyup', handleTotalBillChange)
+
+
+    //RESET  BUTTON 
+    function myfun2() {
+      bill.value = null
+      person.value = null
+      btn1[5].value = null
+      tip.innerText = "$0.00"
+      total.innerText = "$0.00"
+
+    }
+
+  </script>
+
+</body>
+
+</html>
